@@ -1,4 +1,5 @@
 import os
+os.system("pip install --upgrade pip")
 os.system("pip install aiogram python-dotenv")
 import asyncio
 import aiogram
