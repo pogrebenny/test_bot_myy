@@ -1,3 +1,5 @@
+import os
+os.system("pip install aiogram python-dotenv")
 import asyncio
 import aiogram
 from aiogram import Bot, Dispatcher, Router
