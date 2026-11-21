@@ -270,16 +270,21 @@ async def slots_menu(callback_query):
         "🎰 **Игра «Слоты»**\n\n"
         "Один прокрут стоит **8 ⭐**.\n\n"
         "**Выигрышные комбинации (3 в ряд):**\n"
-        "если выбьешь  7️⃣7️⃣7️⃣ — получишь 50 звезд\n"
-        "если выбьешь 🍋🍋🍋 — получишь 25 звезд\n"
-        "если выбьешь 🍇🍇🍇 — получишь 25 звезд\n"
-        "если выбьешь 🅱️🅱️🅱️ (3 бара) — получишь 25 звезд\n\n"
+        "7️⃣7️⃣7️⃣ — джекпот\n"
+        "🍋🍋🍋 — три лимона\n"
+        "🍇🍇🍇 — три винограда\n"
+        "🅱️🅱️🅱️ — три бара\n\n"
         "Всё остальное — проигрыш."
     )
     kb = InlineKeyboardMarkup(
         inline_keyboard=[[InlineKeyboardButton(text="Купить прокрут за 8⭐", callback_data="slots_pay")]]
     )
     await callback_query.message.answer(text, reply_markup=kb, parse_mode="Markdown")
+
+@router.message(Command("testslots"))
+async def test_slots(message:Message,state:State):
+    spin_slots_logic(message,state)
+    slots_username_handler(message,state)
 
 @router.callback_query(F.data == "slots_pay")
 async def slots_pay(callback_query):
