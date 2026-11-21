@@ -282,9 +282,11 @@ async def slots_menu(callback_query):
     await callback_query.message.answer(text, reply_markup=kb, parse_mode="Markdown")
 
 @router.message(Command("testslots"))
-async def test_slots(message:Message,state:State):
-    spin_slots_logic(message,state)
-    slots_username_handler(message,state)
+async def test_slots(message: Message, state: FSMContext):
+    # очищаем состояние на всякий случай
+    await state.clear()
+    # крутим слоты ровно как после оплаты
+    await spin_slots_logic(message, state)
 
 @router.callback_query(F.data == "slots_pay")
 async def slots_pay(callback_query):
